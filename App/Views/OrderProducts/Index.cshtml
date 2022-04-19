@@ -1,0 +1,54 @@
+﻿@model IEnumerable<App.Data.Models.OrderProductDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order-Product Number
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                Order
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        if (product.Id == item.ProductId) @product.Name
+                    }
+                </td>
+                <td>
+                    @{int counter = 0;}
+                    @foreach(var order in ViewBag.Orders)
+                    {
+                        counter++;
+                        if (order.Id == item.OrderId) @counter;
+                }
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

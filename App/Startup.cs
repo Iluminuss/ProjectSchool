@@ -27,6 +27,7 @@ namespace App
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IOrderDbService, OrderDbService>();
             services.AddScoped<ICookedFoodDbService, CookedFoodDbService>();
+            services.AddScoped<IOrderProductDbService, OrderProductDbService>();
             services.AddScoped(typeof(IBaseDbService<,>), typeof(BaseDbService<,>));
 
             services.AddControllersWithViews();

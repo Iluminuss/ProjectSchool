@@ -1,0 +1,47 @@
+﻿@model App.Data.Models.OrderProductDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>OrderProduct</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <select asp-for="ProductId" class="form-control">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <option value="@product.Id">@product.Name</option>
+                }
+            </select>
+            <select asp-for="OrderId" class="form-control">
+                @{int counter = 0;}
+                @foreach (var order in ViewBag.Orders)
+                {
+                    counter++;
+                    <option value="@order.Id">@counter</option>
+                }
+            </select>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

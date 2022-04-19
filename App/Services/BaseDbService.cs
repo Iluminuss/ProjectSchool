@@ -31,7 +31,7 @@ namespace App.Services
             return Mapper.Map<List<TG>>(await DbContext.Set<T>().ToListAsync());
         }
 
-        public async Task<TG> FindById(string? id)
+        public async Task<TG> FindById(string id)
         {
             return Mapper.Map<TG>(await DbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id));
         }

@@ -46,7 +46,7 @@ namespace App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual async Task<IActionResult> Create(TG dto)
+        public virtual async Task<IActionResult> Create([FromForm]TG dto)
         {
             if (ModelState.IsValid)
             {

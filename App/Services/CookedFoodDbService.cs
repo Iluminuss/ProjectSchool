@@ -21,11 +21,15 @@ namespace App.Services
         }
         public async Task AddCookedFoodAsync(CookedFoodDTO dto)
         {
+            var product = GetProduct(dto.ProductId);
             var cookedFood = mapper.Map<CookedFood>(dto);
-
-            await dbContext.CookedFoods.AddAsync(cookedFood);
-            dbContext.Products.Find(dto.ProductId).Quantity += dto.Quantity;
-
+            product.Quantity += dto.Quantity;
+            dbContext.Entry(product).State = EntityState.Modified;
+            await dbContext.SaveChangesAsync();
+            dbContext.Entry(product).State = EntityState.Detached;
+            dbContext.CookedFoods.Attach(cookedFood);
+            dbContext.Entry(cookedFood).State = EntityState.Added;  // or EntityState.Modified
+            dbContext.SaveChanges();
             await dbContext.SaveChangesAsync();
 
             dto.Id = cookedFood.Id;
@@ -38,10 +42,10 @@ namespace App.Services
 
         public async Task<bool> RemoveCookedFoodAsync(string id)
         {
-            var cookedFood = dbContext.CookedFoods.Find(id);
+            var cookedFood = dbContext.CookedFoods.Include(x => x.Product).FirstOrDefaultAsync(x => x.Id == id).Result;
+            dbContext.Products.Find(cookedFood.Product.Id).Quantity -= cookedFood.Quantity;
             var deleted = dbContext.CookedFoods.Remove(cookedFood);
             if (deleted.State != EntityState.Deleted) return false;
-            dbContext.Products.Find(cookedFood.Product.Id).Quantity -= cookedFood.Quantity;
             await dbContext.SaveChangesAsync();
             return true;
         }
@@ -53,6 +57,11 @@ namespace App.Services
             dbContext.Entry(mapper.Map<CookedFood>(dto)).State = EntityState.Modified;
             dbContext.Products.Find(dto.Id).Quantity += cookedFoodQuantity;
             dbContext.SaveChanges();
+        }
+
+        private Product GetProduct(string id)
+        {
+            return dbContext.Set<Product>().FirstOrDefaultAsync(x => x.Id == id).Result;
         }
     }
 }
