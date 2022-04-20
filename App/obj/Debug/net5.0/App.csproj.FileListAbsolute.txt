@@ -334,6 +334,4 @@ C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\App.pd
 C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\App.genruntimeconfig.cache
 C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\Razor\Views\OrderProducts\Create.cshtml.g.cs
 C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\Razor\Views\OrderProducts\Delete.cshtml.g.cs
-C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\Razor\Views\OrderProducts\Details.cshtml.g.cs
-C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\Razor\Views\OrderProducts\Edit.cshtml.g.cs
 C:\Users\Martin Svilenski\source\repos\ProjectSchool\App\obj\Debug\net5.0\Razor\Views\OrderProducts\Index.cshtml.g.cs
